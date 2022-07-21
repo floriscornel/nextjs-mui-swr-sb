@@ -15,6 +15,13 @@ interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
 
+if (
+  process.env.NEXT_PUBLIC_API_MOCKING === 'enabled' ||
+  location.hostname === 'localhost'
+) {
+  require('../utility/enableMocking');
+}
+
 const clientSideEmotionCache = createEmotionCache();
 
 const lightTheme = createTheme(lightThemeOptions);
