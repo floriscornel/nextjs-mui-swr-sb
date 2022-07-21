@@ -1,3 +1,4 @@
+import { Button } from '@mui/material'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -21,6 +22,8 @@ const Home: NextPage = () => {
           Get started by editing{' '}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
+
+        <Button variant="text">Edit</Button>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
