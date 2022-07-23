@@ -11,7 +11,7 @@ import type { SWRConfiguration, Key } from 'swr';
 import type {
   GroupListResponse,
   NoResponseErrorResponse,
-  GetGroupsParams,
+  ListGroupsParams,
   GroupInfoResponse,
   GroupAddMemberBody,
   GroupRemoveMemberBody,
@@ -25,8 +25,8 @@ type Awaited<O> = O extends AwaitedInput<infer T> ? T : never;
 /**
  * @summary List groups on your account
  */
-export const getGroups = (
-  params?: GetGroupsParams,
+export const listGroups = (
+  params?: ListGroupsParams,
   options?: AxiosRequestConfig,
 ): Promise<AxiosResponse<GroupListResponse>> => {
   return axios.get(`/groups`, {
@@ -35,20 +35,20 @@ export const getGroups = (
   });
 };
 
-export const getGetGroupsKey = (params?: GetGroupsParams) => [
+export const getListGroupsKey = (params?: ListGroupsParams) => [
   `/groups`,
   ...(params ? [params] : []),
 ];
 
-export type GetGroupsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getGroups>>
+export type ListGroupsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof listGroups>>
 >;
-export type GetGroupsQueryError = AxiosError<NoResponseErrorResponse>;
+export type ListGroupsQueryError = AxiosError<NoResponseErrorResponse>;
 
-export const useGetGroups = <TError = AxiosError<NoResponseErrorResponse>>(
-  params?: GetGroupsParams,
+export const useListGroups = <TError = AxiosError<NoResponseErrorResponse>>(
+  params?: ListGroupsParams,
   options?: {
-    swr?: SWRConfiguration<Awaited<ReturnType<typeof getGroups>>, TError> & {
+    swr?: SWRConfiguration<Awaited<ReturnType<typeof listGroups>>, TError> & {
       swrKey?: Key;
       enabled?: boolean;
     };
@@ -59,8 +59,8 @@ export const useGetGroups = <TError = AxiosError<NoResponseErrorResponse>>(
 
   const isEnabled = swrOptions?.enabled !== false;
   const swrKey =
-    swrOptions?.swrKey ?? (() => (isEnabled ? getGetGroupsKey(params) : null));
-  const swrFn = () => getGroups(params, axiosOptions);
+    swrOptions?.swrKey ?? (() => (isEnabled ? getListGroupsKey(params) : null));
+  const swrFn = () => listGroups(params, axiosOptions);
 
   const query = useSwr<Awaited<ReturnType<typeof swrFn>>, TError>(
     swrKey,
@@ -77,7 +77,7 @@ export const useGetGroups = <TError = AxiosError<NoResponseErrorResponse>>(
 /**
  * @summary Create a new group
  */
-export const postGroups = (
+export const newGroup = (
   options?: AxiosRequestConfig,
 ): Promise<AxiosResponse<void>> => {
   return axios.post(`/groups`, undefined, options);
@@ -86,24 +86,24 @@ export const postGroups = (
 /**
  * @summary Get Group info
  */
-export const getGroupId = (
+export const getGroup = (
   groupId: string,
   options?: AxiosRequestConfig,
 ): Promise<AxiosResponse<GroupInfoResponse>> => {
   return axios.get(`/group/${groupId}`, options);
 };
 
-export const getGetGroupIdKey = (groupId: string) => [`/group/${groupId}`];
+export const getGetGroupKey = (groupId: string) => [`/group/${groupId}`];
 
-export type GetGroupIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getGroupId>>
+export type GetGroupQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getGroup>>
 >;
-export type GetGroupIdQueryError = AxiosError<NoResponseErrorResponse>;
+export type GetGroupQueryError = AxiosError<NoResponseErrorResponse>;
 
-export const useGetGroupId = <TError = AxiosError<NoResponseErrorResponse>>(
+export const useGetGroup = <TError = AxiosError<NoResponseErrorResponse>>(
   groupId: string,
   options?: {
-    swr?: SWRConfiguration<Awaited<ReturnType<typeof getGroupId>>, TError> & {
+    swr?: SWRConfiguration<Awaited<ReturnType<typeof getGroup>>, TError> & {
       swrKey?: Key;
       enabled?: boolean;
     };
@@ -114,9 +114,8 @@ export const useGetGroupId = <TError = AxiosError<NoResponseErrorResponse>>(
 
   const isEnabled = swrOptions?.enabled !== false && !!groupId;
   const swrKey =
-    swrOptions?.swrKey ??
-    (() => (isEnabled ? getGetGroupIdKey(groupId) : null));
-  const swrFn = () => getGroupId(groupId, axiosOptions);
+    swrOptions?.swrKey ?? (() => (isEnabled ? getGetGroupKey(groupId) : null));
+  const swrFn = () => getGroup(groupId, axiosOptions);
 
   const query = useSwr<Awaited<ReturnType<typeof swrFn>>, TError>(
     swrKey,
@@ -133,30 +132,34 @@ export const useGetGroupId = <TError = AxiosError<NoResponseErrorResponse>>(
 /**
  * @summary Add a member to a group
  */
-export const postGroupIdAddMember = (
+export const postGroupAddMember = (
   groupId: string,
   groupAddMemberBody: GroupAddMemberBody,
   options?: AxiosRequestConfig,
 ): Promise<AxiosResponse<void>> => {
-  return axios.post(`/group/${groupId}/addMember`, groupAddMemberBody, options);
+  return axios.post(
+    `/group/${groupId}/add_member`,
+    groupAddMemberBody,
+    options,
+  );
 };
 
-export const postGroupIdRemoveMember = (
+export const postGroupRemoveMember = (
   groupId: string,
   groupRemoveMemberBody: GroupRemoveMemberBody,
   options?: AxiosRequestConfig,
 ): Promise<AxiosResponse<void>> => {
   return axios.post(
-    `/group/${groupId}/removeMember`,
+    `/group/${groupId}/remove_member`,
     groupRemoveMemberBody,
     options,
   );
 };
 
-export const postGroupIdRenameGroup = (
+export const postGroupRenameGroup = (
   groupId: string,
   groupRenameBody: GroupRenameBody,
   options?: AxiosRequestConfig,
 ): Promise<AxiosResponse<void>> => {
-  return axios.post(`/group/${groupId}/renameGroup`, groupRenameBody, options);
+  return axios.post(`/group/${groupId}/rename_group`, groupRenameBody, options);
 };

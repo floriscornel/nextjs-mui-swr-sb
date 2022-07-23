@@ -7,41 +7,44 @@
 import { rest } from 'msw';
 import { faker } from '@faker-js/faker';
 
-export const getGetGroupsMock = () => ({
-  groups: {
-    id: faker.random.word(),
+export const getListGroupsMock = () => ({
+  groups: Array.from(
+    { length: faker.datatype.number({ min: 1, max: 10 }) },
+    (_, i) => i + 1,
+  ).map(() => ({
+    id: (() => faker.datatype.uuid())(),
     name: faker.random.word(),
     members: Array.from(
       { length: faker.datatype.number({ min: 1, max: 10 }) },
       (_, i) => i + 1,
     ).map(() => ({
-      id: faker.random.word(),
+      id: (() => faker.datatype.uuid())(),
       email: faker.internet.email(),
       name: faker.random.word(),
       role: faker.helpers.arrayElement(['owner', 'member']),
-      joined: faker.random.word(),
+      joined: (() => faker.date.past(1))(),
     })),
-    created: faker.random.word(),
+    created: (() => faker.date.past(1))(),
     group_version: faker.datatype.number({ min: 0, max: undefined }),
-  },
+  })),
   current_page: faker.datatype.number({ min: 1, max: undefined }),
   total_pages: faker.datatype.number({ min: 1, max: undefined }),
 });
 
-export const getGetGroupIdMock = () => ({
-  id: faker.random.word(),
+export const getGetGroupMock = () => ({
+  id: (() => faker.datatype.uuid())(),
   name: faker.random.word(),
   members: Array.from(
     { length: faker.datatype.number({ min: 1, max: 10 }) },
     (_, i) => i + 1,
   ).map(() => ({
-    id: faker.random.word(),
+    id: (() => faker.datatype.uuid())(),
     email: faker.internet.email(),
     name: faker.random.word(),
     role: faker.helpers.arrayElement(['owner', 'member']),
-    joined: faker.random.word(),
+    joined: (() => faker.date.past(1))(),
   })),
-  created: faker.random.word(),
+  created: (() => faker.date.past(1))(),
   group_version: faker.datatype.number({ min: 0, max: undefined }),
 });
 
@@ -50,7 +53,7 @@ export const getGroupsMSW = () => [
     return res(
       ctx.delay(1000),
       ctx.status(200, 'Mocked status'),
-      ctx.json(getGetGroupsMock()),
+      ctx.json(getListGroupsMock()),
     );
   }),
   rest.post('*/groups', (_req, res, ctx) => {
@@ -60,16 +63,16 @@ export const getGroupsMSW = () => [
     return res(
       ctx.delay(1000),
       ctx.status(200, 'Mocked status'),
-      ctx.json(getGetGroupIdMock()),
+      ctx.json(getGetGroupMock()),
     );
   }),
-  rest.post('*/group/:groupId/addMember', (_req, res, ctx) => {
+  rest.post('*/group/:groupId/add_member', (_req, res, ctx) => {
     return res(ctx.delay(1000), ctx.status(200, 'Mocked status'));
   }),
-  rest.post('*/group/:groupId/removeMember', (_req, res, ctx) => {
+  rest.post('*/group/:groupId/remove_member', (_req, res, ctx) => {
     return res(ctx.delay(1000), ctx.status(200, 'Mocked status'));
   }),
-  rest.post('*/group/:groupId/renameGroup', (_req, res, ctx) => {
+  rest.post('*/group/:groupId/rename_group', (_req, res, ctx) => {
     return res(ctx.delay(1000), ctx.status(200, 'Mocked status'));
   }),
 ];

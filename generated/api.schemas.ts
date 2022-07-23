@@ -4,7 +4,7 @@
  * Shared Expenses
  * OpenAPI spec version: 1.0
  */
-export type GetGroupsParams = { page?: number };
+export type ListGroupsParams = { page?: number };
 
 export type GroupRenameBody = {
   /** New name of the group */
@@ -38,7 +38,7 @@ export type GroupInfoResponse = Group;
 export type NoResponseErrorResponse = unknown | null;
 
 export type GroupListResponse = {
-  groups: Group;
+  groups: Group[];
   current_page: number;
   total_pages: number;
 };

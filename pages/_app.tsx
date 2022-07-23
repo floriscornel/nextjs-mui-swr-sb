@@ -17,7 +17,7 @@ interface MyAppProps extends AppProps {
 
 if (
   process.env.NEXT_PUBLIC_API_MOCKING === 'enabled' ||
-  location.hostname === 'localhost'
+  (typeof location !== 'undefined' && location?.hostname === 'localhost')
 ) {
   require('../utility/enableMocking');
 }
