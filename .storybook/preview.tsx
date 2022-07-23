@@ -1,4 +1,5 @@
 //--- SETUP MUI THEME ---
+import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
 import lightThemeOptions from '../styles/themes/lightThemeOptions';
 const theme = createTheme(lightThemeOptions);
@@ -15,12 +16,15 @@ export const decorators = [
 import { setupWorker } from 'msw';
 import { getGroupsMSW } from '../generated/groups/groups.msw';
 
+declare global {
+  interface Window {
+    msw: any;
+  }
+}
+
 if (typeof global.process === 'undefined') {
-  // MSW をセットアップ
   const worker = setupWorker(...getGroupsMSW());
-  // Service Worker を立ち上げる
   worker.start();
-  // stories ファイルからアクセスできるように、worker をグローバルに参照できるようにする
   window.msw = { worker };
 }
 //-----------------
