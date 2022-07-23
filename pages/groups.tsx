@@ -1,8 +1,9 @@
 import { CircularProgress } from '@mui/material';
+import { NextPage } from 'next';
 import GroupCard from '../components/GroupCard';
 import { useListGroups } from '../generated/groups/groups';
 
-function Groups() {
+const Groups: NextPage = () => {
   const { data, error } = useListGroups();
 
   if (error) return <div>failed to load</div>;
@@ -20,6 +21,6 @@ function Groups() {
       {groupCards}
     </div>
   );
-}
+};
 
 export default Groups;

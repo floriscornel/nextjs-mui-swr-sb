@@ -1,13 +1,12 @@
 import { Stack, Button } from '@mui/material';
 import { NextPage } from 'next';
-import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
+    <div>
       ...
-      <main className={styles.main}>
-        <h1 className={styles.title}>
+      <main>
+        <h1>
           Welcome to <a href='https://nextjs.org'>Next.js!</a>
         </h1>
         <Stack spacing={2} direction='row'>

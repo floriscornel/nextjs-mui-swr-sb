@@ -1,10 +1,7 @@
+//--- SETUP MUI THEME ---
 import { createTheme, ThemeProvider } from '@mui/material';
-
-import '../styles/globals.css';
 import lightThemeOptions from '../styles/themes/lightThemeOptions';
-
 const theme = createTheme(lightThemeOptions);
-
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
@@ -12,6 +9,23 @@ export const decorators = [
     </ThemeProvider>
   ),
 ];
+//----------------------
+
+//--- SETUP MSW ---
+import { setupWorker } from 'msw';
+import { getGroupsMSW } from '../generated/groups/groups.msw';
+
+if (typeof global.process === 'undefined') {
+  // MSW をセットアップ
+  const worker = setupWorker(...getGroupsMSW());
+  // Service Worker を立ち上げる
+  worker.start();
+  // stories ファイルからアクセスできるように、worker をグローバルに参照できるようにする
+  window.msw = { worker };
+}
+//-----------------
+
+import '../styles/globals.css';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
