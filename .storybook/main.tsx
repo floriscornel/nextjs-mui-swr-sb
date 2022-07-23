@@ -9,6 +9,9 @@ module.exports = {
     '@storybook/addon-interactions',
   ],
   framework: '@storybook/react',
+  features: {
+    emotionAlias: false,
+  },
   core: {
     builder: '@storybook/builder-webpack5',
     disableTelemetry: true,
