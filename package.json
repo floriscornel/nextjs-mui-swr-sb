@@ -45,7 +45,6 @@
     "eslint-config-next": "12.2.2",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-storybook": "^0.6.1",
-    "orval": "^6.9.0",
     "prettier": "^2.7.1",
     "sb": "^6.5.9",
     "typescript": "4.7.4"
