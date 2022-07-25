@@ -1,6 +1,6 @@
 import { CircularProgress } from '@mui/material';
 import { NextPage } from 'next';
-import GroupCard from '../components/GroupCard';
+import { GroupCard } from '../components/GroupCard';
 import { useListGroups } from '../generated/groups/groups';
 
 const Groups: NextPage = () => {

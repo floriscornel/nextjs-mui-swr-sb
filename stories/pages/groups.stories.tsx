@@ -4,13 +4,8 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import GroupsPage from '../../pages/groups';
 
 export default {
-  title: 'GroupsPage',
+  title: 'Pages/GroupsPage',
   component: GroupsPage,
 } as ComponentMeta<typeof GroupsPage>;
 
-const Template: ComponentStory<typeof GroupsPage> = (args) => (
-  <GroupsPage {...args} />
-);
-
-export const Primary = Template.bind({});
-Primary.args = {};
+export const Page: ComponentStory<typeof GroupsPage> = () => <GroupsPage />;

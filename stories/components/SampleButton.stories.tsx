@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { SampleButton } from '../../components/SampleButton';
 
 export default {
-  title: 'SampleButton',
+  title: 'Components/SampleButton',
   component: SampleButton,
 } as ComponentMeta<typeof SampleButton>;
 

@@ -16,7 +16,15 @@ export const SampleButton = ({
   onClick,
 }: Props) => {
   return (
-    <Button variant='contained' color={color} size={size} onClick={onClick}>
+    <Button
+      variant='contained'
+      color={color}
+      size={size}
+      onClick={onClick}
+      style={{
+        backgroundColor: backgroundColor,
+      }}
+    >
       {label}
     </Button>
   );

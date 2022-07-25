@@ -1,10 +1,10 @@
 import { Group } from '../generated/api.schemas';
 
-type GroupCardProps = {
-  group: Group;
-};
+interface Props {
+  readonly group: Group;
+}
 
-function GroupCard({ group }: GroupCardProps) {
+export const GroupCard = ({ group }: Props) => {
   const { id, name, members, created } = group;
 
   const memberList = members.map((mem) => (
@@ -21,6 +21,4 @@ function GroupCard({ group }: GroupCardProps) {
       <hr />
     </div>
   );
-}
-
-export default GroupCard;
+};
