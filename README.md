@@ -19,9 +19,9 @@ This is a TypeScript [Next.js](https://nextjs.org/) template that has configured
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
+yarn
+yarn dev # To start dev server on port 3000
+yarn storybook # To start storybook
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
