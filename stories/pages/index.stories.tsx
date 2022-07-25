@@ -4,8 +4,8 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import HomePage from '../../pages/index';
 
 export default {
-  title: 'Pages/HomePage',
+  title: 'Pages/Index',
   component: HomePage,
 } as ComponentMeta<typeof HomePage>;
 
-export const Page: ComponentStory<typeof HomePage> = () => <HomePage />;
+export const Index: ComponentStory<typeof HomePage> = () => <HomePage />;
